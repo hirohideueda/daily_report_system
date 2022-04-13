@@ -21,6 +21,7 @@ public abstract class ActionBase {
     protected HttpServletRequest request;
     protected HttpServletResponse response;
 
+    //サーブレットコンテキスト、リクエスト、レスポンスをクラスフィールドに設定
     public void init(ServletContext servletContext, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
         this.context = servletContext;
         this.request = servletRequest;

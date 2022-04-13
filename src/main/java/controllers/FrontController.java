@@ -35,10 +35,12 @@ public class FrontController extends HttpServlet {
         doGet(request, response);
     }
 
+    //リクエストパラメータの値から該当するActionクラスのインスタンスの作成、返却
     @SuppressWarnings({"rawtypes", "unchecked"})
     private ActionBase getAction(HttpServletRequest request, HttpServletResponse response) {
         Class type = null;
         ActionBase action = null;
+
         try {
 
             String actionString = request.getParameter(ForwardConst.ACT.getValue());
