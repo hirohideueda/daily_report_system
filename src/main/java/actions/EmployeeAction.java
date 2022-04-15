@@ -34,38 +34,39 @@ public class EmployeeAction extends ActionBase {
     //一覧画面表示
     public void index() throws ServletException, IOException{
 
-        int page = getPage();
-        List<EmployeeView> employees = service.getPerPage(page);
+        if (checkAdmin()) {
 
-        long employeeCount = service.countAll();
-
-        putRequestScope(AttributeConst.EMPLOYEES, employees);
-        putRequestScope(AttributeConst.EMP_COUNT, employeeCount);
-        putRequestScope(AttributeConst.PAGE, page);
-        putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE);
-
-        String flush = getSessionScope(AttributeConst.FLUSH);
-        if(flush != null) {
-            putRequestScope(AttributeConst.FLUSH, flush);
-            removeSessionScope(AttributeConst.FLUSH);
+            int page = getPage();
+            List<EmployeeView> employees = service.getPerPage(page);
+            long employeeCount = service.countAll();
+            putRequestScope(AttributeConst.EMPLOYEES, employees);
+            putRequestScope(AttributeConst.EMP_COUNT, employeeCount);
+            putRequestScope(AttributeConst.PAGE, page);
+            putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE);
+            String flush = getSessionScope(AttributeConst.FLUSH);
+            if (flush != null) {
+                putRequestScope(AttributeConst.FLUSH, flush);
+                removeSessionScope(AttributeConst.FLUSH);
+            }
+            forward(ForwardConst.FW_EMP_INDEX);
         }
-
-        forward(ForwardConst.FW_EMP_INDEX);
     }
 
     //新規登録画面表示
     public void entryNew() throws ServletException, IOException{
 
-        putRequestScope(AttributeConst.TOKEN, getTokenId());
-        putRequestScope(AttributeConst.EMPLOYEE, new EmployeeView());
+        if (checkAdmin()) {
 
-        forward(ForwardConst.FW_EMP_NEW);
+            putRequestScope(AttributeConst.TOKEN, getTokenId());
+            putRequestScope(AttributeConst.EMPLOYEE, new EmployeeView());
+            forward(ForwardConst.FW_EMP_NEW);
+        }
     }
 
     //新規登録
     public void create() throws ServletException, IOException{
 
-        if(checkToken()) {
+        if(checkAdmin() && checkToken()) {
 
             EmployeeView ev = new EmployeeView(
                     null,
@@ -100,40 +101,40 @@ public class EmployeeAction extends ActionBase {
     //詳細画面表示
     public void show() throws ServletException, IOException{
 
-        EmployeeView ev = service.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
+        if (checkAdmin()) {
 
-        if (ev == null || ev.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
+            EmployeeView ev = service.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
+            if (ev == null || ev.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
 
-            forward(ForwardConst.FW_ERR_UNKNOWN);
-            return;
+                forward(ForwardConst.FW_ERR_UNKNOWN);
+                return;
+            }
+            putRequestScope(AttributeConst.EMPLOYEE, ev);
+            forward(ForwardConst.FW_EMP_SHOW);
         }
-
-        putRequestScope(AttributeConst.EMPLOYEE, ev);
-
-        forward(ForwardConst.FW_EMP_SHOW);
     }
 
     //編集画面表示
     public void edit() throws ServletException, IOException{
 
-        EmployeeView ev = service.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
+        if (checkAdmin()) {
 
-        if (ev == null || ev.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
+            EmployeeView ev = service.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
+            if (ev == null || ev.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
 
-            forward(ForwardConst.FW_ERR_UNKNOWN);
-            return;
+                forward(ForwardConst.FW_ERR_UNKNOWN);
+                return;
+            }
+            putRequestScope(AttributeConst.TOKEN, getTokenId());
+            putRequestScope(AttributeConst.EMPLOYEE, ev);
+            forward(ForwardConst.FW_EMP_EDIT);
         }
-
-        putRequestScope(AttributeConst.TOKEN, getTokenId());
-        putRequestScope(AttributeConst.EMPLOYEE, ev);
-
-        forward(ForwardConst.FW_EMP_EDIT);
     }
 
     //更新
     public void update() throws ServletException, IOException{
 
-        if (checkToken()) {
+        if (checkAdmin() && checkToken()) {
 
             EmployeeView ev = new EmployeeView(
                     toNumber(getRequestParam(AttributeConst.EMP_ID)),
@@ -168,13 +169,27 @@ public class EmployeeAction extends ActionBase {
     //論理削除
     public void destroy() throws ServletException, IOException{
 
-        if (checkToken()) {
+        if (checkAdmin() && checkToken()) {
 
             service.destroy(toNumber(getRequestParam(AttributeConst.EMP_ID)));
 
             putSessionScope(AttributeConst.FLUSH, MessageConst.I_DELETED.getMessage());
 
             redirect(ForwardConst.ACT_EMP, ForwardConst.CMD_INDEX);
+        }
+    }
+
+    //ログイン者が管理者かどうか
+    private boolean checkAdmin() throws ServletException, IOException{
+
+        EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+
+        if (ev.getAdminFlag() != AttributeConst.ROLE_ADMIN.getIntegerValue()) {
+
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+            return false;
+        }else {
+            return true;
         }
     }
 }
