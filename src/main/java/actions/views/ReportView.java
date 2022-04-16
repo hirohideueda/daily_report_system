@@ -17,6 +17,9 @@ import lombok.Setter;
 public class ReportView {
 
     //id
+    private Integer id;
+
+    //日報登録従業員
     private EmployeeView employee;
 
     //日報日付
