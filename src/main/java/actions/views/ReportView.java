@@ -25,6 +25,12 @@ public class ReportView {
     //日報日付
     private LocalDate reportDate;
 
+    //出勤時間
+    private String begin;
+
+    //退勤時間
+    private String finish;
+
     //日報タイトル
     private String title;
 

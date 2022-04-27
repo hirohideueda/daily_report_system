@@ -18,13 +18,13 @@
                 <c:out value="${flush}"></c:out>
             </div>
         </c:if>
-        <h2>日報管理システムへようこそ</h2>
-        <h3>【自分の日報　一覧】</h3>
+        <h3>【<c:out value="${sessionScope.login_employee.name}" />さんの日報一覧】</h3>
         <table id="report_list">
             <tbody>
                 <tr>
                     <th class="report_name">氏名</th>
                     <th class="report_date">日付</th>
+                    <th>出勤・退勤</th>
                     <th class="report_title">タイトル</th>
                     <th class="report_action">操作</th>
                 </tr>
@@ -33,8 +33,12 @@
                     <tr class="row${status.count % 2}">
                         <td class="report_name"><c:out value="${report.employee.name}" /></td>
                         <td class="report_date"><fmt:formatDate value='${reportDay}' pattern='yyyy-MM-dd' /></td>
+                        <td>
+                            出勤：<c:out value="${report.begin}" /><br>
+                            退勤：<c:out value="${report.finish}" />
+                        </td>
                         <td class="report_title">${report.title}</td>
-                        <td class="report_action"><a href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a></td>
+                        <td class="report_action"><a href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細画面へ</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
@@ -53,6 +57,6 @@
                 </c:choose>
             </c:forEach>
         </div>
-        <p><a href="<c:url value='?action=${actRep}&command=${commNew}' />">新規日報の登録</a></p>
+        <a href="<c:url value='?action=${actRep}&command=${commNew}' />">新規日報の登録</a>
     </c:param>
 </c:import>

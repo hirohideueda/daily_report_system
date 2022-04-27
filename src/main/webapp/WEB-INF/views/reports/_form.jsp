@@ -25,9 +25,18 @@
 <input type="text" name="${AttributeConst.REP_TITLE.getValue()}" value="${report.title}" />
 <br /><br />
 
+<label for="$[AttributeConst.REP_BEGIN.getValue()]">出勤時間</label><br />
+<input type="time" name="$[AttributeConst.REP_BEGIN.getValue()]" value="$[report.begin]" />
+<br />
+<label for="$[AttributeConst.REP_FINISH.getValue()]">退勤時間</label><br />
+<input type="time" name="$[AtttributeConst.REP_FINISH.getValue()]" value="$[report.finish]" />
+<br /><br />
+
 <label for="${AttributeConst.REP_CONTENT.getValue()}">内容</label><br />
 <textarea name="${AttributeConst.REP_CONTENT.getValue()}" rows="10" cols="50">${report.content}</textarea>
 <br /><br />
+
 <input type="hidden" name="${AttributeConst.REP_ID.getValue()}" value="${report.id}" />
 <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
+
 <button type="submit">投稿</button>

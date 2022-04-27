@@ -61,6 +61,14 @@ public class Report {
     @Column(name = JpaConst.REP_COL_REP_DATE, nullable = false)
     private LocalDate reportDate;
 
+    //出勤時間
+    @Column(name = JpaConst.REP_COL_REP_BEGIN, nullable = false)
+    private String begin;
+
+    //退勤時間
+    @Column(name = JpaConst.REP_COL_REP_FINISH, nullable = false)
+    private String finish;
+
     //日報タイトル
     @Column(name = JpaConst.REP_COL_TITLE, length = 255, nullable = false)
     private String title;

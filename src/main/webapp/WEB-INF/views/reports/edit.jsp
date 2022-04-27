@@ -8,13 +8,13 @@
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
 
-        <h2>日報 編集ページ</h2>
+        <h2>日報　編集画面</h2>
         <form method="POST" action="<c:url value='?action=${actRep}&command=${commUpd}' />">
             <c:import url="_form.jsp" />
         </form>
 
         <p>
-            <a href="<c:url value='?action=Report&command=index' />">一覧に戻る</a>
+            <a href="<c:url value='?action=Report&command=index' />">日報一覧へ</a>
         </p>
     </c:param>
 </c:import>
