@@ -26,10 +26,10 @@
 <br /><br />
 
 <label for="$[AttributeConst.REP_BEGIN.getValue()]">出勤時間</label><br />
-<input type="time" name="$[AttributeConst.REP_BEGIN.getValue()]" value="$[report.begin]" />
+<input type="time" name="${AttributeConst.REP_BEGIN.getValue()}" value="${report.begin}" />
 <br />
 <label for="$[AttributeConst.REP_FINISH.getValue()]">退勤時間</label><br />
-<input type="time" name="$[AtttributeConst.REP_FINISH.getValue()]" value="$[report.finish]" />
+<input type="time" name="${AttributeConst.REP_FINISH.getValue()}" value="${report.finish}" />
 <br /><br />
 
 <label for="${AttributeConst.REP_CONTENT.getValue()}">内容</label><br />
