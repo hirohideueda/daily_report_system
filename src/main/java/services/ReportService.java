@@ -92,6 +92,17 @@ public class ReportService extends ServiceBase {
         return errors;
     }
 
+    //日報の承認
+    public void approval(Integer id) {
+
+        ReportView savedReport = findOne(id);
+
+        savedReport.setApprovalFlag(JpaConst.REP_APPROVAL_OK);
+
+        update(savedReport);
+    }
+
+
     //idを条件にデータを1件取得
     private Report findOneInternal(int id) {
         return em.find(Report.class, id);

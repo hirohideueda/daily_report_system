@@ -88,7 +88,8 @@ public class ReportAction extends ActionBase {
                     getRequestParam(AttributeConst.REP_TITLE),
                     getRequestParam(AttributeConst.REP_CONTENT),
                     null,
-                    null);
+                    null,
+                    AttributeConst.REP_APPROVAL_NG.getIntegerValue());
 
             List<String> errors = service.create(rv);
 
@@ -119,6 +120,7 @@ public class ReportAction extends ActionBase {
         }else {
 
             putRequestScope(AttributeConst.REPORT, rv);
+            putRequestScope(AttributeConst.TOKEN, getTokenId());
 
             forward(ForwardConst.FW_REP_SHOW);
         }
@@ -169,6 +171,19 @@ public class ReportAction extends ActionBase {
 
                 redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
             }
+        }
+    }
+
+    //承認
+    public void approval() throws ServletException, IOException {
+
+        if(checkToken()) {
+
+            service.approval(toNumber(getRequestParam(AttributeConst.REP_ID)));
+
+            putSessionScope(AttributeConst.FLUSH, MessageConst.I_APPROVALED.getMessage());
+
+            redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
         }
     }
 }

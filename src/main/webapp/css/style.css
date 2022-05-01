@@ -172,15 +172,23 @@ table#report_list .report_name {
     padding: 10px 2%;
 }
 table#report_list .report_date {
-    width: 26%;
+    width: 22%;
 }
 
 table#report_list .report_title {
-    width: 30%;
+    width: 20%;
 }
 
 table#report_list .report_action {
     width: 23%;
+}
+
+table#report_list .report_working {
+    width: 24%;
+}
+
+table#report_list .report_approval {
+    width: 16%;
 }
 
 pre {

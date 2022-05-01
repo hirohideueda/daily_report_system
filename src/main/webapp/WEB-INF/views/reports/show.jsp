@@ -2,15 +2,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="constants.ForwardConst" %>
+<%@ page import="constants.AttributeConst" %>
 
 <c:set var="actRep" value="${ForwardConst.ACT_REP.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commEdt" value="${ForwardConst.CMD_EDIT.getValue()}" />
+<c:set var="commApp" value="${ForwardConst.CMD_APPROVAL.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
 
         <h2>日報　詳細画面</h2>
+
+        <c:if test="${sessionScope.login_employee != null}">
+            <c:if test="${sessionScope.login_employee.adminFlag == AttributeConst.ROLE_ADMIN.getIntegerValue()}">
+                <p>
+                    <a href="<c:url value='?action=${actRep}&command=${commApp}&id=${report.id}&${AttributeConst.TOKEN.getValue()}=${_token}' />">
+                        この日報を承認する
+                    </a>
+                </p>
+            </c:if>
+        </c:if>
 
         <table>
             <tbody>
@@ -22,6 +34,13 @@
                     <th>日付</th>
                     <fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
                     <td><fmt:formatDate value='${reportDay}' pattern='yyyy-MM-dd' /></td>
+                </tr>
+                <tr>
+                    <th>出勤・退勤時間</th>
+                    <td>
+                        出勤：<c:out value="${report.begin}" /><br>
+                        退勤：<c:out value="${report.finish}" />
+                    </td>
                 </tr>
                 <tr>
                     <th>内容</th>

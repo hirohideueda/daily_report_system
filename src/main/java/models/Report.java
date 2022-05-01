@@ -85,5 +85,9 @@ public class Report {
     //更新日時
     @Column(name = JpaConst.REP_COL_UPDATED_AT, nullable = false)
     private LocalDateTime updatedAt;
+
+    //承認の有無
+    @Column(name = JpaConst.REP_COL_APPROVAL_FLAG)
+    private Integer approvalFlag;
 }
 

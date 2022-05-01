@@ -47,7 +47,11 @@ public enum AttributeConst {
     REP_BEGIN("begin"),         //出勤時間
     REP_FINISH("finish"),       //退勤時間
     REP_TITLE("title"),
-    REP_CONTENT("content");
+    REP_CONTENT("content"),
+    REP_APPROVAL_FLAG("approval_flag"),
+
+    REP_APPROVAL_OK(1),        //承認
+    REP_APPROVAL_NG(0);        //未承認
 
     private final String text;
     private final Integer i;
