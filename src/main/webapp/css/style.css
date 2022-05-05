@@ -11,8 +11,8 @@ body {
     position: fixed;
     top: 0px;
     z-index: 2;
-    background-color: #00ccff;
-    border-bottom: solid 2px #0099ff;
+    background-color: #ffffff;
+    border-bottom: solid 2px #000000;
     display: inline-block;
 }
 
@@ -23,14 +23,20 @@ body {
 }
 
 #header a{
-    color: #ffffff;
+    color: #000000;
     text-decoration: none;
-    font-weight: bold;
+
+}
+
+#header h3{
+    font-size: larger;
+    display: inline-block;
 }
 
 h1 {
     font-size: 30px;
     display: inline;
+    font-weight: bold;
 }
 
 #employee_name {
@@ -45,22 +51,21 @@ h1 {
     position: fixed;
     bottom: 0px;
     z-index: 2;
-    background-color: #00ccff;
-    border-top: solid 2px #0099ff;
+    background-color: #ffffff;
+    border-top: solid 1px #000000;
     display: inline-block;
     text-align: right;
 }
 
 #footer_menu{
-    padding-top: 10px;
+    padding-top: 11px;
     padding-right: 3%;
 }
 
 #footer a{
-    font-size: 22px;
-    color: #ffffff;
-    text-decoration:underline;
-    text-decoration-color: #ffffff;
+    font-size: 20px;
+    color: #000000;
+    text-decoration: none;
 }
 
 #flush_success {
@@ -118,7 +123,7 @@ a {
 }
 
 table, tr, th, td {
-    border: 1px solid #cccccc;
+    border: 2px solid #808080;
 }
 
 table {
@@ -193,4 +198,9 @@ table#report_list .report_approval {
 
 pre {
     font-family: "Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",Helvetica,Arial,sans-serif;
+}
+
+.button_approval{
+    background-color: #eeeeee;
+    border-radius: 100vh;
 }

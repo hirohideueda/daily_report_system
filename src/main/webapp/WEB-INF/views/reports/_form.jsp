@@ -13,26 +13,26 @@
     </div>
 </c:if>
 <fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
-<label for="${AttributeConst.REP_DATE.getValue()}">日付</label><br />
+<label for="${AttributeConst.REP_DATE.getValue()}">＜日付＞</label><br />
 <input type="date" name="${AttributeConst.REP_DATE.getValue()}" value="<fmt:formatDate value='${reportDay}' pattern='yyyy-MM-dd' />" />
 <br /><br />
 
-<label for="name">氏名</label><br />
+<label for="name">＜氏名＞</label><br />
 <c:out value="${sessionScope.login_employee.name}" />
 <br /><br />
 
-<label for="${AttributeConst.REP_TITLE.getValue()}">タイトル</label><br />
+<label for="${AttributeConst.REP_TITLE.getValue()}">＜タイトル＞</label><br />
 <input type="text" name="${AttributeConst.REP_TITLE.getValue()}" value="${report.title}" />
 <br /><br />
 
-<label for="$[AttributeConst.REP_BEGIN.getValue()]">出勤時間</label><br />
+<label for="$[AttributeConst.REP_BEGIN.getValue()]">＜出勤＞</label><br />
 <input type="time" name="${AttributeConst.REP_BEGIN.getValue()}" value="${report.begin}" />
 <br />
-<label for="$[AttributeConst.REP_FINISH.getValue()]">退勤時間</label><br />
+<label for="$[AttributeConst.REP_FINISH.getValue()]">＜退勤＞</label><br />
 <input type="time" name="${AttributeConst.REP_FINISH.getValue()}" value="${report.finish}" />
 <br /><br />
 
-<label for="${AttributeConst.REP_CONTENT.getValue()}">内容</label><br />
+<label for="${AttributeConst.REP_CONTENT.getValue()}">＜内容＞</label><br />
 <textarea name="${AttributeConst.REP_CONTENT.getValue()}" rows="10" cols="50">${report.content}</textarea>
 <br /><br />
 

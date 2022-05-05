@@ -16,11 +16,13 @@
 
         <c:if test="${sessionScope.login_employee != null}">
             <c:if test="${sessionScope.login_employee.adminFlag == AttributeConst.ROLE_ADMIN.getIntegerValue()}">
-                <p>
-                    <a href="<c:url value='?action=${actRep}&command=${commApp}&id=${report.id}&${AttributeConst.TOKEN.getValue()}=${_token}' />">
-                        この日報を承認する
-                    </a>
-                </p>
+                <c:if test="${report.approvalFlag != 1}">
+                    <button type="button"
+                            class="button_approval"
+                            onclick="location.href='<c:url value='?action=${actRep}&command=${commApp}&id=${report.id}&${AttributeConst.TOKEN.getValue()}=${_token}' />'">
+                        日報を承認
+                    </button><br><br>
+                </c:if>
             </c:if>
         </c:if>
 
@@ -55,6 +57,14 @@
                     <th>更新日時</th>
                     <fmt:parseDate value="${report.updatedAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="updateDay" type="date" />
                     <td><fmt:formatDate value="${updateDay}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                </tr>
+                <tr>
+                    <th>承認</th>
+                    <td>
+                        <c:if test="${report.approvalFlag == 1}">
+                            承認済
+                        </c:if>
+                    </td>
                 </tr>
             </tbody>
         </table>

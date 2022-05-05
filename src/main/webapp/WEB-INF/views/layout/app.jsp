@@ -25,7 +25,25 @@
     <div id="wrapper">
         <div id="header">
             <div id="header_menu">
-                <h1><a href="<c:url value='/?action=${actTop}&command=${commIdx}' />">日報管理システム</a></h1>&nbsp;
+                <h1>
+                    <a href="<c:url value='/?action=${actTop}&command=${commIdx}' />">
+                        日報管理システム
+                    </a>
+                </h1>&nbsp;
+                <c:if test="${sessionScope.login_employee != null}">
+                    <h3>
+                        <a href="<c:url value='?action=${actRep}&command=${commNew}' />">
+                            新規日報の登録
+                        </a>
+                    </h3>&nbsp;&nbsp;
+                    <c:if test="${sessionScope.login_employee.adminFlag == AttributeConst.ROLE_ADMIN.getIntegerValue()}">
+                        <h3>
+                            <a href="<c:url value='?action=${actEmp}&command=${commNew}' />">
+                                新規従業員の登録
+                            </a>
+                        </h3>
+                    </c:if>
+                </c:if>
             </div>
         </div>
         <div id="content">${param.content}</div>
