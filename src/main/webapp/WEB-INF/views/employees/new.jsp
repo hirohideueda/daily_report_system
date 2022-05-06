@@ -8,7 +8,7 @@
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
-        <h2>従業員　新規登録ページ</h2>
+        <h2>従業員　新規登録画面</h2>
 
         <form method="POST" action="<c:url value='?action=${action}&command=${commCrt}' />">
             <c:import url="_form.jsp" />
